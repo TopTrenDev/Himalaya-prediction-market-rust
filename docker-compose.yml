@@ -1,0 +1,36 @@
+services:
+  matcher:
+    build: .
+    image: himalaya-matching:latest
+    command: matcher
+    environment:
+      RUST_LOG: matcher=info,tower_http=info
+      PORT: "3001"
+    ports:
+      - "3001:3001"
+
+  api1:
+    build: .
+    image: himalaya-matching:latest
+    command: api
+    environment:
+      MATCHER_URL: http://matcher:3001
+      PORT: "3000"
+      RUST_LOG: api=info,tower_http=info
+    ports:
+      - "3000:3000"
+    depends_on:
+      - matcher
+
+  api2:
+    build: .
+    image: himalaya-matching:latest
+    command: api
+    environment:
+      MATCHER_URL: http://matcher:3001
+      PORT: "3002"
+      RUST_LOG: api=info,tower_http=info
+    ports:
+      - "3002:3002"
+    depends_on:
+      - matcher
