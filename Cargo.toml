@@ -1,0 +1,7 @@
+[workspace]
+resolver = "2"
+members = ["crates/prediction-core", "crates/matcher", "crates/api"]
+
+[workspace.package]
+edition = "2021"
+license = "MIT"
