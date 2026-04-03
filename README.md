@@ -2,6 +2,10 @@
 
 Rust workspace with a **single matcher process** that owns the order book, plus **stateless HTTP/WebSocket API** processes that forward traffic. This satisfies the take-home requirement that **multiple API instances** can run without **double-matching** liquidity.
 
+## Demo video
+
+- **YouTube:** (https://www.youtube.com/watch?v=RWFN5K2Mm8w&t=1s)
+
 ## Run locally
 
 Terminal 1 — matcher (book + matching + canonical WebSocket feed):
