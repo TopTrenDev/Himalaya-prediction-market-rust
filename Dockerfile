@@ -1,6 +1,7 @@
-FROM rust:1.84-bookworm AS builder
+# ICU crates in the dependency tree need rustc >= 1.86 (see cargo error if this drifts).
+FROM rust:1.86-bookworm AS builder
 WORKDIR /app
-COPY Cargo.toml ./
+COPY Cargo.toml Cargo.lock ./
 COPY crates ./crates
 RUN cargo build --release
 

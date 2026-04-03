@@ -9,7 +9,7 @@ use axum::{
     routing::{get, post},
     Json, Router,
 };
-use futures_util::{SinkExt, StreamExt};
+use futures_util::StreamExt;
 use serde_json::json;
 use std::net::SocketAddr;
 use std::time::Duration;
@@ -174,7 +174,7 @@ async fn get_orderbook(State(state): State<ApiState>) -> impl IntoResponse {
 }
 
 async fn ws_upgrade(ws: WebSocketUpgrade, State(state): State<ApiState>) -> impl IntoResponse {
-    let mut rx = state.local_fills.subscribe();
+    let rx = state.local_fills.subscribe();
     ws.on_upgrade(move |socket| ws_client(socket, rx))
 }
 

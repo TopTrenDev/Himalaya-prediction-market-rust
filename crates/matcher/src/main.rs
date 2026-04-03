@@ -8,7 +8,6 @@ use axum::{
     routing::{get, post},
     Json, Router,
 };
-use futures_util::{SinkExt, StreamExt};
 use prediction_core::{OrderBook, OrderBookSnapshot, Side};
 use serde::Deserialize;
 use serde_json::json;
@@ -177,7 +176,7 @@ async fn get_orderbook(State(state): State<AppState>) -> impl IntoResponse {
 }
 
 async fn ws_upgrade(ws: WebSocketUpgrade, State(state): State<AppState>) -> impl IntoResponse {
-    let mut rx = state.fill_tx.subscribe();
+    let rx = state.fill_tx.subscribe();
     ws.on_upgrade(move |socket| ws_client(socket, rx))
 }
 
